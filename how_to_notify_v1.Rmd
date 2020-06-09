@@ -1,0 +1,85 @@
+---
+title: "How to have R notify you"
+author: "Brian Law"
+date: "6/7/2020"
+output: html_document
+---
+
+Motivation: sometimes we have a long-running R job that we leave alone while we do other things, and when this happens, it would be nice if R notified us when it was done. Below we'll walk through how to automate having R send you an: email, text message, Slack message, or MSFT Teams message.
+
+### Email
+```{r Email Chunk, echo=TRUE, eval=FALSE}
+library(blastula)
+
+# First let's build a rich HTML email using library(blastula)
+owl <- compose_email(body = md(c("Hello from Hogwarts. <br><br> The polyjuice potion is complete!")))
+
+# Second, store credentials to send our message via smtp; using gmail here but could be others.
+create_smtp_creds_file(
+  file = "gmail_creds",
+  user = "name@gmail.com",
+  provider = "gmail"
+) # Note, a pop up will ask for the pwd for the user you provided
+
+# Third, send the email using gmail here but could be others
+owl %>%
+  smtp_send(
+    to = "someone@email.com",
+    from = "name@gmail.com",
+    subject = "Mischief Managed",
+    credentials = creds_file("gmail_creds")
+  )
+```
+
+### Text
+If you prefer to get notifications via text messages then you can use the old trick to email a phone number. Each mobile phone plan provider has a slightly different format for how to do this and so the first step is to google "how to send email to text" and look yours up, e.g. AT&T's is the `ten-digit-phone-number@mms.att.net`. Let's run through an example.
+
+```{r Text Chunk, echo=TRUE, eval=FALSE}
+owl2 <- ""
+owl2 %>%
+  smtp_send(
+    to = "6263540686@mms.att.net", 
+    from = "rbrianlaw@gmail.com",
+    subject = "Mischief Managed",
+    credentials = creds_file("gmail_creds")
+  )
+```
+Note that the text message above will only render the subject line currently but you can tinker further.
+
+### Slack
+Who knew that chat rooms would make such a comeback? If you use Slack and want to send a message there, you can do so using R. Here we'll walk through a stripped down method that posts messages directly to the Slack API using an RStudio library `httr`. If you want to get fancy there is also `library(slackr)`, which has more control and features. 
+
+There are a few steps to set things up. First, you will need a Slack account. Second, go to api.slack.com/apps and login. 
+![](./slack_1.png){#id .class width=50% height=50%}
+
+Third, click on "Create New App". Fourth, on the left sidebar, click on "Incoming Webhooks" and make sure "Activate Incoming Webhooks" is "On".
+
+![](./slack_2.png){#id .class width=50% height=50%}
+
+Then, scroll to the bottom of the page and click "Add New Webhook to WorkSpace".
+
+![](./slack_3.png){#id .class width=50% height=50%}
+
+Next, choose what Slack channel you want to generate a webhook to connect with, for example, your own Slack username, or a more general Slack channel at your company, like "cat_photos".
+
+![](./slack_4.png){#id .class width=50% height=50%}
+
+Lastly, click on the "Copy" button to copy the webhook, which is what we'll use in our R code below to actually send the message.
+
+![](./slack_3.png){#id .class width=50% height=50%}
+
+
+```{r echo=TRUE, eval=FALSE}
+library(httr)
+test_msg <- list(text="hello world!")
+
+hook_to_me <- "https://hooks.slack.com/services/some_long_hash"
+POST(hook_to_me, encode = "json", body = test_msg)
+
+if (2 < 3) { # make this conditional
+  hook_to_cats_channel <- "https://hooks.slack.com/services/some_long_hash"
+  POST(hook_to_cats_channel, encode = "json", body = test_msg)
+}
+```
+
+### MSFT Teams
