@@ -5,7 +5,7 @@ date: "6/7/2020"
 output: html_document
 ---
 
-Motivation: sometimes we have a long-running R job that we leave alone while we do other things, and when this happens, it would be nice if R notified us when it was done. Below we'll walk through how to automate having R send you an: email, text message, Slack message, or MSFT Teams message.
+Motivation: sometimes we have a long-running R job that we leave alone while we do other things, and when this happens, it would be nice if R notified us when it was done. Below we'll walk through how to automate having R send you an: email, text message, `Slack` message, or `Microsoft Teams` message.
 
 ### Email
 ```{r Email Chunk, echo=TRUE, eval=FALSE}
@@ -38,7 +38,7 @@ If you prefer to get notifications via text messages then you can use the old tr
 owl2 <- ""
 owl2 %>%
   smtp_send(
-    to = "6263540686@mms.att.net", 
+    to = "xxxxxxxxxx@mms.att.net", 
     from = "rbrianlaw@gmail.com",
     subject = "Mischief Managed",
     credentials = creds_file("gmail_creds")
@@ -47,9 +47,9 @@ owl2 %>%
 Note that the text message above will only render the subject line currently but you can tinker further.
 
 ### Slack
-Who knew that chat rooms would make such a comeback? If you use Slack and want to send a message there, you can do so using R. Here we'll walk through a stripped down method that posts messages directly to the Slack API using an RStudio library `httr`. If you want to get fancy there is also `library(slackr)`, which has more control and features. 
+Who knew that chat rooms would make such a comeback? If you use `Slack` and want to send a message there, you can do so using R. Here we'll walk through a stripped down method that posts messages directly to the `Slack` API using an RStudio library `httr`. If you want to get fancy there is also `library(slackr)`, which has more control and features. 
 
-There are a few steps to set things up. First, you will need a Slack account. Second, go to api.slack.com/apps and login. 
+There are a few steps to set things up. First, you will need a Slack account. Second, go to `api.slack.com/apps` and login. 
 ![](./images/slack_1.png){#id .class width=50% height=50%}
 
 Third, click on "Create New App". Fourth, on the left sidebar, click on "Incoming Webhooks" and make sure "Activate Incoming Webhooks" is "On".
@@ -60,7 +60,7 @@ Then, scroll to the bottom of the page and click "Add New Webhook to WorkSpace".
 
 ![](./images/slack_3.png){#id .class width=50% height=50%}
 
-Next, choose what Slack channel you want to generate a webhook to connect with, for example, your own Slack username, or a more general Slack channel at your company, like "cat_photos".
+Next, choose what `Slack` channel you want to generate a webhook to connect with, for example, your own `Slack` username, or a more general `Slack` channel at your company, like "cat_photos".
 
 ![](./images/slack_4.png){#id .class width=50% height=50%}
 
@@ -82,12 +82,10 @@ if (2 < 3) { # make this conditional
 }
 ```
 
-### MSFT Teams
-The process of connecting to `MS Teams` in similar to connecting to `Slack` under the covers, using a webhook and leveraging the incoming webhook app, installed from the `MS Teams` app store. To get started, let's install the `teamr` package from `CRAN`, call the library and create our connection. 
+### Microsoft Teams
+The process of connecting to `Microsoft Teams` in similar to connecting to `Slack` under the covers, using a webhook and leveraging the incoming webhook app, installed from the `Teams` app store. To get started, let's install the `teamr` package from `CRAN`, call the library and create our connection. 
 
-
-
-Just like with `Slack`, you will first need an organizational `MS Teams` account. Secondly, navigate to the `add more apps` button from within the desktop client, which is the ellipsis below the pinned apps on the left task bar.
+Just like with `Slack`, you will first need an organizational `Teams` account. Secondly, navigate to the `add more apps` button from within the desktop client, which is the ellipsis below the pinned apps on the left task bar.
 
 ![](./images/teams_6.png){#id .class width=50% height=50%}
 
@@ -95,7 +93,7 @@ Third, use the search bar, located in the upper left corner to search for the `I
 
 ![](./images/teams_1.png){#id .class width=50% height=50%}
 
-click on the icon to bring up the install screen, where you can name the webhook, and assign it a specific channel within `MS Teams`
+click on the icon to bring up the install screen, where you can name the webhook, and assign it a specific channel within `Teams`
 
 ![](./images/teams_2.png){#id .class width=50% height=50%}
 
@@ -103,7 +101,7 @@ After following the prompts to name the connection and assign it to a channel, y
 
 ![](./images/teams_4.png){#id .class width=50% height=50%}
 
-The code to test your webhook in reasonably simple, and requires only six lines of code. Although, in practice, we leverage many of, if not all,the customizible features provided within the `teamr` package. You can read more about these customizible feature either in the official documentation or on the `GitHub` page https://github.com/wwwjk366/teamr
+The code to test your webhook in reasonably simple, and requires only six lines of code. Although, in practice, we leverage many of, if not all, the customizible features provided within the `teamr` package. You can read more about these customizible feature either in the official documentation or on the `GitHub` page https://github.com/wwwjk366/teamr
 
 ```{r echo=TRUE, eval=FALSE}
 
@@ -114,7 +112,6 @@ con <- connector_card$new(hookurl = "https://outlook.office.com/webhook/dd123a74
 con$text("This is the notification body!")
 con$title("Message Title")
 
-
 con$add_link_button("The GitHub repo for the teamr package", "https://github.com/wwwjk366/teamr")
 
 con$send()
@@ -122,6 +119,8 @@ con$send()
 ```
 
 
-The final step, after running this code, is to verify everything is working as it should. The above code snippet sends a notification to `MS Teams`, with a link button pointing the package's GitHub repo, from a webhook bot containing the `RStudio` logo. 
+The final step, after running this code, is to verify everything is working as it should. The above code snippet sends a notification to `Teams`, with a link button pointing the package's GitHub repo, from a webhook bot containing the `RStudio` logo. 
 
 ![](./images/teams_5.png){#id .class width=50% height=50%}
+
+We hope you found this discussion helpful and that the next time you wish there was a way to have `R` notify you, then you can incorporate one of these into your workflow. 
