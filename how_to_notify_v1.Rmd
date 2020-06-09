@@ -83,7 +83,7 @@ if (2 < 3) { # make this conditional
 ```
 
 ### MSFT Teams
-The process of connecting to `MS Teams` in similar to connecting to `Slack` under the covers, using a webhook and leveraging the incoming webhook app, installed from the `MS Teams` app store. to get started, let's install the `teamr` package from `CRAN`, call the library and create our connection. 
+The process of connecting to `MS Teams` in similar to connecting to `Slack` under the covers, using a webhook and leveraging the incoming webhook app, installed from the `MS Teams` app store. To get started, let's install the `teamr` package from `CRAN`, call the library and create our connection. 
 
 
 
@@ -99,11 +99,11 @@ click on the icon to bring up the install screen, where you can name the webhook
 
 ![](./images/teams_2.png){#id .class width=50% height=50%}
 
-After following the prompts to name the connection and assign it to a channel, you given the option of uploading an image so the webhook is easily recognizable when notifications are posted to your channel. Here, I have chosen to use an `RStudio` logo, which we will see later is makes it easier to know who or from where the post originates. After you are satisfied, click the done button in the bottom left corner. 
+After following the prompts to name the connection and assign it to a channel, you are given the option of uploading an image so the webhook is easily recognizable when notifications are posted to your channel. Here, I have chosen to use an `RStudio` logo, which we will see later,  makes it easier to know who, and/or from where, the post originates. After you are satisfied, click the done button in the bottom left corner. 
 
 ![](./images/teams_4.png){#id .class width=50% height=50%}
 
-The code to test your webhook in reasonably simple, and requires six lines of code. Although, in practice, we leverage many, if not all the customizible features provided within the `teamr` package. 
+The code to test your webhook in reasonably simple, and requires only six lines of code. Although, in practice, we leverage many of, if not all,the customizible features provided within the `teamr` package. You can read more about these customizible feature either in the official documentation or on the `GitHub` page https://github.com/wwwjk366/teamr
 
 ```{r echo=TRUE, eval=FALSE}
 
@@ -122,6 +122,6 @@ con$send()
 ```
 
 
-The final step, after running this code, is to verify everything is working as it should. The above code snippet sends a notification to `MS Teams`, with a link button pointing the package GitHub repo, from a webhook bot containing the `RStudio` logo. 
+The final step, after running this code, is to verify everything is working as it should. The above code snippet sends a notification to `MS Teams`, with a link button pointing the package's GitHub repo, from a webhook bot containing the `RStudio` logo. 
 
 ![](./images/teams_5.png){#id .class width=50% height=50%}
