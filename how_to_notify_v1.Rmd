@@ -107,7 +107,7 @@ The code to test your webhook in reasonably simple, and requires only six lines 
 
 library(teamr)
 
-con <- connector_card$new(hookurl = "https://outlook.office.com/webhook/dd123a74-6021-4c21-90e6-924002280771@60a5b34b-c976-4591-a955-f65531bb4d4b/IncomingWebhook/1593e918e0fd49a690783f08a81d365e/0eac4547-86ae-4373-98e5-f07f131160c8")
+con <- connector_card$new(hookurl = "https://outlook.office.com/webhook/...")
 
 con$text("This is the notification body!")
 con$title("Message Title")
