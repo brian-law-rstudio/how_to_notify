@@ -369,7 +369,7 @@ summary {
 </div>
 
 
-<p>Motivation: sometimes we have a long-running R job that we leave alone while we do other things, and when this happens, it would be nice if R notified us when it was done. Below we’ll walk through how to automate having R send you an: email, text message, <code>Slack</code> message, or <code>Microsoft Teams</code> message.</p>
+<p>Motivations: 1) sometimes we have a long-running R job that we leave alone while we do other things, and when this happens, it would be nice if R notified us when it was done; something like calling out “dinner’s ready!” but for work. 2) other times we have a process that we monitor for anomolies and most of the time everything’s fine, except when it’s not, and then we want a “fire alarm” to go off in R that notifies us. Below we’ll walk through how to automate having R send you an: email, text message, <code>Slack</code> message, or <code>Microsoft Teams</code> message.</p>
 <div id="email" class="section level3">
 <h3>Email</h3>
 <pre class="r"><code>library(blastula)
@@ -443,7 +443,7 @@ if (2 &lt; 3) { # make this conditional
 <p>The code to test your webhook in reasonably simple, and requires only six lines of code. Although, in practice, we leverage many of, if not all, the customizible features provided within the <code>teamr</code> package. You can read more about these customizible feature either in the official documentation or on the <code>GitHub</code> page <a href="https://github.com/wwwjk366/teamr" class="uri">https://github.com/wwwjk366/teamr</a></p>
 <pre class="r"><code>library(teamr)
 
-con &lt;- connector_card$new(hookurl = &quot;https://outlook.office.com/webhook/dd123a74-6021-4c21-90e6-924002280771@60a5b34b-c976-4591-a955-f65531bb4d4b/IncomingWebhook/1593e918e0fd49a690783f08a81d365e/0eac4547-86ae-4373-98e5-f07f131160c8&quot;)
+con &lt;- connector_card$new(hookurl = &quot;https://outlook.office.com/webhook/...&quot;)
 
 con$text(&quot;This is the notification body!&quot;)
 con$title(&quot;Message Title&quot;)

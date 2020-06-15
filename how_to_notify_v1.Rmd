@@ -5,7 +5,7 @@ date: "6/7/2020"
 output: html_document
 ---
 
-Motivation: sometimes we have a long-running R job that we leave alone while we do other things, and when this happens, it would be nice if R notified us when it was done. Below we'll walk through how to automate having R send you an: email, text message, `Slack` message, or `Microsoft Teams` message.
+Motivations: 1) sometimes we have a long-running R job that we leave alone while we do other things, and when this happens, it would be nice if R notified us when it was done; something like calling out "dinner's ready!", but for work. 2) Other times we have a process that we monitor for anomolies and usually everything's fine, except when it's not, and then we want a "fire alarm" to go off in R that notifies us. Below we'll walk through how to automate having R send you an: email, text message, `Slack` message, or `Microsoft Teams` message.
 
 ### Email
 ```{r Email Chunk, echo=TRUE, eval=FALSE}
